@@ -1,0 +1,21 @@
+{
+  "name": "koa-graphql-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "graphql": "^14.2.1",
+    "graphql-tools": "^4.0.4",
+    "koa": "^2.7.0",
+    "koa-graphql": "^0.8.0",
+    "koa-mount": "^4.0.0",
+    "nodemon": "^1.18.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js" 
+  },
+  "author": "",
+  "license": "ISC"
+}
