@@ -1,45 +1,26 @@
-const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLNonNull} = require('graphql');
-const TestGraphQLType =  require('./testType');
+import {
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLNonNull,
+} from "graphql";
+import { addResolveFunctionsToSchema } from "graphql-tools";
+import query from "./query";
+import mutation from "./mutation";
+import { resolvers } from "./resolvers";
 
-const Query = new GraphQLObjectType({
-  name: 'Query',
-  fields: {
-    test: {
-      type: TestGraphQLType,
-      args: { id: { type: GraphQLString }},
-      resolve(parent, args) {
-        const t = {
-            id: args.id,
-            name:'test'
-        }
-        return t;
-      }
-    }
-  }
-})
-
-const Mutation = new GraphQLObjectType({
-  name: 'Mutations',
-  description: 'These are the things we can change',
-  fields: () => ({
-    deleteTest: {
-      type: TestGraphQLType,
-      description: 'Delete Test',
-      args: {
-        id: { type: new GraphQLNonNull(GraphQLString) }
-      },
-      resolve: (value, { id }) => {
-        const t = {
-            id: id,
-            name:'Delete'
-        }
-        return t;
-      }
-    }
-  }),
+const schema = new GraphQLSchema({
+  query,
+  mutation,
 });
 
-module.exports = new GraphQLSchema({
-  query: Query,
-  mutation: Mutation
+// const resolverValidationOptions = {
+//   requireResolversForResolveType: false,
+// };
+
+addResolveFunctionsToSchema({
+  schema,
+  resolvers,
 });
+
+module.exports = schema;
